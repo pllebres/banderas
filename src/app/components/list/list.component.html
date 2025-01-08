@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+ <span style="margin-right: 12px">Lista de Paises</span>
+ <button mat-button (click)="enableCards(true)">
+  <mat-icon>grid_view</mat-icon>
+ </button>
+ <button mat-button (click)="enableCards(false)">
+  <mat-icon>table_chart</mat-icon>
+ </button>
+</mat-toolbar>
+
+<div *ngIf="loading"><mat-spinner /></div>
+
+<div *ngIf="!loading">
+ <ng-container *ngIf="showCards; else showTable">
+  <div style="display: flex; flex-wrap: wrap">
+   <app-card *ngFor="let country of countries" [country]="country"></app-card>
+  </div>
+ </ng-container>
+ <ng-template #showTable>
+  <app-grid [countries]="countries"></app-grid>
+ </ng-template>
+</div>

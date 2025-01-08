@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+ <button mat-button [routerLink]="['/']">
+  <mat-icon>arrow_back</mat-icon> Volver a la lista de paises
+ </button>
+</mat-toolbar>
+
+<div>
+ <ng-container *ngIf="loading; else details">
+  <mat-spinner></mat-spinner>
+ </ng-container>
+
+ <ng-template #details>
+  <mat-card>
+   <div
+    *ngIf="country"
+    style="display: flex; flex-direction: column; align-items: center"
+   >
+    <h1>{{ country?.name.common }}</h1>
+    <img [src]="country?.flags?.png" *ngIf="country?.flags?.png" />
+    <button mat-button (click)="enableDetails()">
+     {{ showDetails ? "Ocultar detalles" : "Ver detalles" }}
+    </button>
+    <mat-tab-group *ngIf="showDetails">
+     <mat-tab label="Capital">{{ country?.capital?.[0]}}</mat-tab>
+     <mat-tab label="Union Member">{{
+      country?.unMember ? "Yes" : "No"
+     }}</mat-tab>
+     <mat-tab label="Continents">{{ country?.continents }}</mat-tab>
+    </mat-tab-group>
+   </div>
+  </mat-card>
+ </ng-template>
+</div>
